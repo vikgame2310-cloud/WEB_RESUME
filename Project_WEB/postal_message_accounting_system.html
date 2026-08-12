@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>проект_1</title>
+    </head>
+
+    <body>
+        <h1>Система учёта почтовых сообщений</h1>
+
+        <h2>Описание проекта</h2>
+
+        <p>
+            Описание...
+        </p>
+
+        <strong>code:</strong><br>
+
+<pre><code>
+fun main() {
+
+    var whatToDo: Int? // Переменная для хранения выбора пользователя
+    do {
+        // Вывод меню
+        println("\nМеню ввода/вывода почтовых отправлений:")
+        println("1. Добавить новую запись") //8.1, 8.2
+        println("2. Загрузить данные из JSON-файла") //2
+        println("3. Загрузить данные из CSV-файла") //3
+        println("4. Сохранить данные в JSON-файле") //4
+        println("5. Сохранить данные в CSV-файле") //5
+        println("6. Отобразить/обработать записи") //6
+        println("7. Функция агрегированных показателей")
+        println("8. Выход")
+        print("Введите ваш выбор (1-8): ")
+        // Чтение ввода с консоли и преобразование в Int (null, если неверно)
+        whatToDo = readlnOrNull()?.toIntOrNull()
+        when {
+            whatToDo == 1 -> {
+                // Пункт меню 1.1: создать сообщение"
+                println("Пункт меню 1.1: Добавить новую запись")
+                spaces(4)
+                createConnect()
+
+            }
+            whatToDo == 2 -> {
+                // Пункт меню 1.2: Загрузить данные из JSON-файла
+                println("Пункт меню 1.2: Загрузить данные из JSON-файла")
+                spaces(4)
+                readJson()
+            }
+            whatToDo == 3 -> {
+                // Пункт меню 1.3: Загрузить данные из CSV-файла
+                print("Пункт меню 1.3: Загрузить данные из CSV-файла")
+                spaces(4)
+                readCsv()
+            }
+            whatToDo == 4 -> {
+                // Пункт меню 1.4: Сохранить данные в JSON-файле
+                println("Пункт меню 1.4: Сохранить данные в JSON-файле")
+                spaces(4)
+                saveToJson()
+            }
+            whatToDo == 5 -> {
+                // Пункт меню 1.5: Сохранить данные в CSV-файле
+                println("Пункт меню 1.5: Сохранить данные в CSV-файле")
+                spaces(4)
+                saveToCsv()
+            }
+            whatToDo == 6 -> {
+                // Пункт меню 1.6: Отобразить/обработать записи
+                println("Пункт меню 1.6. Отобразить/обработать записи")
+                spaces(4)
+                consoleMenuOps()
+            }
+            whatToDo == 7 -> {
+                // Пункт меню 1.7: функция агрегированных показателей
+                println("Пункт 1.7. функция агрегированных показателей")
+                spaces(4)
+                statistics()
+            }
+            whatToDo == 8 -> {
+                // Пункт меню 1.7: Выход из меню
+                println("Пункт 1.7. Выход из меню ввода/вывода учетных записей")
+            }
+            else -> {
+                // Стандартный случай: неверный ввод
+                println("Неверный выбор. Пожалуйста, введите число от 1 до 8.")
+                spaces(4)
+            }
+        }
+    } while (whatToDo != 8) // Повторять, пока не выбран выход
+}
+
+
+fun spaces(x: Int){
+    repeat(x){
+        println()
+    }
+}
+
+
+class ConnectManager {
+    var connect_from_cr_con = mutableListOf<Connect>()
+
+    fun add(connect: Connect) {
+        connect_from_cr_con.add(connect)
+    }
+
+    fun getId(): Int {
+        if (connect_from_cr_con.isEmpty()) {
+            return 1
+        }
+
+        return connect_from_cr_con.maxOf { it.id } + 1
+    }
+
+    fun print_connect_from_cr_con(x: List<Connect> = connect_from_cr_con) {
+        println("id\t|\tsender\t|\trecipient\t|\themet\t|\tsizeKb\t|\tdata-time")
+
+        for (connect in x) {
+            println("${connect.id}\t|\t${connect.sender}\t|\t${connect.recipient}\t|\t${connect.theme}\t|\t${connect.sizeKb}\t|\t${connect.createdAt}")
+        }
+    }
+
+    fun sort_connect_from_cr_con(x: Int, y: Int) {
+        if (x ==1){
+            if (y == 1){
+                connect_from_cr_con.sortBy { it.createdAt }
+            }
+            else if(y == 2){
+                connect_from_cr_con.sortByDescending { it.createdAt }
+            }
+        }
+        else if (x == 2){
+            if (y == 1){
+                connect_from_cr_con.sortBy { it.sender }
+            }
+            else if(y == 2){
+                connect_from_cr_con.sortByDescending { it.sender }
+            }
+        }
+        else if (x == 3){
+            if (y == 1){
+                connect_from_cr_con.sortBy { it.recipient }
+            }
+            else if(y == 2){
+                connect_from_cr_con.sortByDescending { it.recipient }
+            }
+        }
+        else if (x == 4){
+            if (y == 1){
+                connect_from_cr_con.sortBy { it.theme }
+
+            }
+            else if(y == 2){
+                connect_from_cr_con.sortByDescending { it.theme }
+            }
+        }
+
+    }
+
+    fun remove_list(del: Int, x: List<Connect> = connect_from_cr_con): Boolean{
+        for (connect in connect_from_cr_con) {
+            if (connect.id == del) {
+                connect_from_cr_con.remove(connect)
+                return true
+            }
+        }
+        return false
+    }
+
+    fun changeTo(rezult_filtr: List<Connect>) {
+        connect_from_cr_con = rezult_filtr.toMutableList()
+    }
+
+    fun change_Parametr() {
+        var change_value: String
+        println("выберите id операции")
+        var change_Id = readlnOrNull()?.toIntOrNull()
+        if (change_Id == null) {
+            println("id не был введён")
+            return
+        }
+        println("выберите тип параметра")
+        var change_param = readlnOrNull().orEmpty()
+        if (change_param == null) {
+            println("тип параметра не был введён")
+            return
+        }
+        if (change_param == "sender" || change_param == "recipient"){
+            println("выберите параметр")
+            change_value = createParticipant()
+        }else {
+            println("выберите параметр")
+            change_value = readlnOrNull().orEmpty()
+            if (change_value == null) {
+                println("параметр не был введён")
+                return
+            }
+        }
+
+
+        for ((index,connect) in connect_from_cr_con.withIndex()) {
+            if (connect.id == change_Id) {
+                when (change_param) {
+                    "sender" -> connect_from_cr_con[index].sender = change_value
+                    "recipient" -> connect_from_cr_con[index].recipient = change_value
+                    "theme" -> connect_from_cr_con[index].theme = change_value
+                    "sizeKb" -> {
+                        val newSize = change_value.toIntOrNull()
+
+                        if (newSize == null || newSize < 0) {
+                            println("Размер письма должен быть неотрицательным числом")
+                            return
+                        }
+
+                        connect_from_cr_con[index].sizeKb = newSize
+                    }
+
+                    else -> {
+                        println("неверный параметр")
+                        return
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+val manager = ConnectManager()
+
+fun createConnect(){
+    print("отправитель: ")
+    val sender = createParticipant()
+    println("$sender зарегестрирован")
+    spaces(1)
+
+    print("получатель: ")
+    val recipient = createParticipant()
+    println("$recipient зарегестрирован")
+
+    val id = manager.getId()
+    spaces(2)
+
+    print("тема: ")
+    var theme = readLine().toString()
+
+    print("размер в КБ: ")
+    val sizeKb = createSizeKb()
+
+    val formatter = java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+    val createdAt = java.time.LocalDateTime.now().format(formatter)
+
+    var con= Connect(id, sender, recipient, theme, sizeKb, createdAt)
+    manager.add(con)
+    spaces(2)
+    println(con)
+}
+
+
+data class Connect(
+    val id: Int,
+    var sender: String,
+    var recipient: String,
+    var theme: String,
+    var sizeKb: Int,
+    var createdAt: String
+)
+//--------------------вот тольо по сюда ты поставил агрегированное состояние
+
+fun createParticipant(): String{
+    var sender: String
+    val tipe_platform = listOf("gmail.com", "yandex.ru")
+    while (true) {
+        sender = readLine().toString()
+        if (sender.substringAfter("@") in tipe_platform &&
+            sender.substringBefore("@").isNotEmpty()) {
+            return sender
+        }
+        else{println("Не верно указан пользователь, повторите снова")}
+    }
+}
+
+
+fun createSizeKb(): Int {
+    while (true) {
+        print("размер в КБ: ")
+
+        val sizeKb = readlnOrNull()?.toIntOrNull()
+
+        if (sizeKb != null && sizeKb >= 0) {
+            return sizeKb
+        }
+
+        println("Размер письма должен быть неотрицательным числом. Повторите ввод.")
+    }
+}
+
+
+fun saveToJson() {
+    val json = buildString {
+        append("[\n")
+
+        for ((index, connect) in manager.connect_from_cr_con.withIndex()) {
+            append("  {\n")
+            append("    \"id\": ${connect.id},\n")
+            append("    \"sender\": \"${connect.sender}\",\n")
+            append("    \"recipient\": \"${connect.recipient}\",\n")
+            append("    \"theme\": \"${connect.theme}\",\n")
+            append("    \"sizeKb\": ${connect.sizeKb},\n")
+            append("    \"data-time\": \"${connect.createdAt}\"\n")
+            append("  }")
+
+            if (index != manager.connect_from_cr_con.lastIndex) {
+                append(",")
+            }
+
+            append("\n")
+        }
+
+        append("]")
+    }
+
+    java.io.File("connections.json").writeText(json)
+    println("Данные сохранены в JSON-файл")
+}
+
+
+fun readJson(){
+    val file = java.io.File("connections.json")
+
+    if (!file.exists()) {
+        println("JSON-файл не найден")
+        return
+    }
+
+    manager.connect_from_cr_con.clear()
+
+    var lines = file.readLines()
+
+    var id = 0
+    var sender = ""
+    var recipient = ""
+    var theme = ""
+    var sizeKb = 0
+    var createdAt = ""
+
+    for (line in lines) {
+        if (line.trim().startsWith("\"id\"")) {
+            id = line.substringAfter(":")
+                .replace("\"", "")
+                .replace(",", "")
+                .trim()
+                .toInt()
+        }
+        if (line.trim().startsWith("\"sender\"")) {
+            sender = line.substringAfter(":")
+                .replace("\"", "")
+                .replace(",", "")
+                .trim()
+        }
+        if (line.trim().startsWith("\"recipient\"")){
+            recipient = line.substringAfter(":")
+                .replace("\"", "")
+                .replace(",", "")
+                .trim()
+        }
+        if (line.trim().startsWith("\"theme\"")){
+            theme = line.substringAfter(":")
+                .replace("\"", "")
+                .replace(",", "")
+                .trim()
+        }
+        if (line.trim().startsWith("\"sizeKb\"")) {
+            sizeKb = line.substringAfter("\"sizeKb\":")
+                .replace("\"", "")
+                .replace(",", "")
+                .trim()
+                .toInt()
+        }
+        if (line.trim().startsWith("\"data-time\"")){
+            createdAt = line.substringAfter("\"data-time\":")
+                .replace("\"", "")
+                .replace(",", "")
+                .trim()
+            manager.add(Connect(id, sender, recipient, theme, sizeKb, createdAt))
+        }
+
+    }
+    println("файл загружен")
+}
+
+
+fun saveToCsv() {
+    val csv = buildString {
+        append("id,sender,recipient,theme,sizeKb,data-time\n")
+
+        for (connect in manager.connect_from_cr_con) {
+            append("${connect.id},${connect.sender},${connect.recipient},${connect.theme}," +
+                    "${connect.sizeKb},${connect.createdAt}\n")
+        }
+    }
+    java.io.File("connections.csv").writeText(csv)
+    println("Данные сохранены в CSV-файл")
+}
+
+
+fun readCsv() {
+    val file = java.io.File("connections.csv")
+
+    if (!file.exists()) {
+        println("CSV-файл не найден")
+        return
+    }
+
+    manager.connect_from_cr_con.clear()
+
+    var lines = file.readLines()
+
+    var id = 0
+    var sender = ""
+    var recipient = ""
+    var theme = ""
+    var sizeKb = 0
+    var createdAt = ""
+
+    for (line in 1 until lines.size) {
+        var level = lines[line].split(",")
+        id = level[0].toInt()
+        sender = level[1]
+        recipient = level[2]
+        theme = level[3]
+        sizeKb = level[4].toInt()
+        createdAt = level[5]
+        manager.add(Connect(id, sender, recipient, theme, sizeKb, createdAt))
+    }
+    println("CSV-файл загружен")
+}
+
+
+fun statistics() {
+    if (manager.connect_from_cr_con.isEmpty()) {
+        println("Список почтовых отправлений пуст")
+        return
+    }
+
+    val sizes = manager.connect_from_cr_con.map { it.sizeKb }
+
+    println("Агрегированные показатели по размеру писем:")
+    println("Количество писем: ${manager.connect_from_cr_con.size}")
+    println("Суммарный размер писем: ${sizes.sum()} КБ")
+    println("Средний размер письма: ${sizes.average()} КБ")
+    println("Минимальный размер письма: ${sizes.minOrNull()} КБ")
+    println("Максимальный размер письма: ${sizes.maxOrNull()} КБ")
+}
+
+
+//======================================================================================================================
+
+
+fun consoleMenuOps() {
+//-----------------------------------------------------------------------
+// Программа вывода консольного меню обработки учетных записей
+
+    var whatToDo: Int? // Переменная для хранения выбора пользователя
+    do {
+        // Вывод меню
+        println("\nМеню отображения учетных записей:")
+        println("1. Отобразить все отправки") //2
+        println("2. Отсортировать записи") //6
+        println("3. Отфильтровать записи") //6
+        println("4. вывести всех пользователей")
+        println("5. удалить запись по id")
+        println("6. редактировать запись")
+        println("7. Выход")//7
+        print("Введите ваш выбор (1-7): ")
+        // Чтение ввода с консоли и преобразование в Int (null, если
+        // неверно)
+        whatToDo = readlnOrNull()?.toIntOrNull()
+        when {
+            whatToDo == 1 -> {
+                // Пункт меню 2.1: Отобразить все отправки")
+                println("Пункт меню 2.1: Отобразить все отправки")
+                spaces(4)
+                manager.print_connect_from_cr_con()
+            }
+            whatToDo == 2 -> {
+                // Пункт меню 2.2: Отсортировать записи
+                println("Пункт меню 2.2: Отсортировать отправки")
+                spaces(4)
+                sort_meny()
+            }
+            whatToDo == 3 -> {
+                // Пункт меню 2.3: Отфильтровать записи
+                print("Пункт меню 2.3: Отфильтровать записи")
+                spaces(4)
+                filter()
+            }
+            whatToDo == 4 -> {
+                // Пункт меню 2.4: вывести всех пользователей
+                println("Пункт 2.4. вывести всех пользователей")
+                spaces(4)
+                account_print()
+            }
+            whatToDo == 5 -> {
+                // Пункт меню 2.5: удалить запись по id
+                println("Пункт меню 2.5: удалить запись по id")
+                spaces(4)
+                delete()
+            }
+            whatToDo == 6 -> {
+                // Пункт меню 2.6: редактировать запись
+                println("Пункт 2.6.  редактировать запись")
+                spaces(4)
+                manager.change_Parametr()
+            }
+            whatToDo == 7 -> {
+                // Пункт меню 2.7: Выход из меню отображения учетных
+                // записей
+                println("Пункт 2.7. Выход из меню отображения учетных записей")
+            }
+            else -> {
+                // Стандартный случай: неверный ввод
+                println("Неверный выбор. Пожалуйста, введите число от 1 до 7.")
+            }
+        }
+    } while (whatToDo != 7) // Повторять, пока не выбран выход
+}
+
+
+fun chose_dop_mod_sort(chose: Int) {
+    var dop_chpse: Int?
+    do {
+        println("1. от начала")
+        println("2. от конца")
+        println("3. выход")
+        dop_chpse = readlnOrNull()?.toIntOrNull()
+        when{
+            dop_chpse == 1 -> {
+                println("сортировка...")
+                manager.sort_connect_from_cr_con(chose,dop_chpse)
+                println("выполнена")
+            }
+            dop_chpse == 2 -> {
+                println("сортировка...")
+                manager.sort_connect_from_cr_con(chose,dop_chpse)
+                println("выполнена")
+            }
+            else -> {
+                println("Неверный выбор. Пожалуйста, введите число 1 или 2.")
+            }
+        }
+    }while (dop_chpse !=3)
+}
+
+
+fun sort_meny() {
+    do {
+        var chose: Int?
+        println("Выберите тип сортировки:")
+        println("1. Отсортировать по дате")
+        println("2. Отсортировать по отправителю")
+        println("3. Отсортировать по получателю")
+        println("4. Отсортировать по теме")
+        println("5. Выход")
+        chose = readlnOrNull()?.toIntOrNull()
+        when {
+            chose == 1 -> {
+                println("Отсортировать по дате")
+                chose_dop_mod_sort(chose)
+            }
+
+            chose == 2 -> {
+                println("Отсортировать по отправителю")
+                chose_dop_mod_sort(chose)
+            }
+
+            chose == 3 -> {
+                println("Отсортировать по получателю")
+                chose_dop_mod_sort(chose)
+            }
+
+            chose == 4 -> {
+                println("Отсортировать по теме")
+                chose_dop_mod_sort(chose)
+            }
+
+            chose == 5 -> {
+                println("Выход")
+            }
+
+            else -> {
+                // Стандартный случай: неверный ввод
+                println("Неверный выбор. Пожалуйста, введите число от 1 до 4.")
+            }
+        }
+    }while (chose != 5) // Повторять, пока не выбран выход
+}
+
+
+fun filter(){
+    val rezult_filtr = mutableListOf<Connect>()
+    var chose: String?
+    var chose_1: String?
+    val fields = listOf("id", "sender", "recipient", "theme", "sizeKb", "data-time")
+    println("exit. шаг назад")
+    do {
+        println("введите параметр")
+        chose = readlnOrNull().orEmpty()
+
+        if (chose in fields) {
+            do {
+                println("параметр: ${chose}")
+                chose_1 = readlnOrNull().orEmpty()
+                if (chose_1 == "exit") {break}
+                spaces(2)
+                filter_pro(chose, chose_1, rezult_filtr)
+            }while (true)
+
+        }else if(chose == "exit"){break}
+        else{println("не верно введённый параметр")}
+
+    }while (true)
+}
+
+
+fun filter_pro(chose: String, chose_1: String, rezult_filtr: MutableList<Connect>){
+    for (connect in manager.connect_from_cr_con) {
+        if (connect in rezult_filtr) { continue }
+        if (
+            chose == "id" && connect.id.toString() == chose_1 ||
+            chose == "sender" && connect.sender == chose_1 ||
+            chose == "recipient" && connect.recipient == chose_1 ||
+            chose == "theme" && connect.theme == chose_1 ||
+            chose == "sizeKb" && connect.sizeKb.toString() == chose_1 ||
+            chose == "data-time" && connect.createdAt == chose_1
+        ) {
+            rezult_filtr.add(connect)
+        }
+    }
+
+    var go_to: Int?
+    do {
+        println("выберите действия:")
+        println("1. вывести результат")
+        println("2. присвоить главному списку")
+        println("3. продолжить фильтрацию")
+
+        go_to = readlnOrNull()?.toIntOrNull()
+        when {
+            go_to == 1 -> { manager.print_connect_from_cr_con(rezult_filtr) }
+            go_to == 2 -> { manager.changeTo(rezult_filtr) }
+            go_to == 3 -> { println("Продолжаем") }
+            else -> {println("не верное значение")}
+        }
+    }while (go_to != 3)
+}
+
+
+fun account_print() {
+    var list_account = mutableListOf<String>()
+    for (connect in manager.connect_from_cr_con) {
+        if (connect.sender !in list_account ){list_account.add(connect.sender)}
+        if (connect.recipient !in list_account){list_account.add(connect.recipient)}
+        else {continue}
+    }
+    for (i in list_account) {
+        println(i)
+    }
+}
+
+
+fun delete() {
+    println("укажите id")
+    var del = readlnOrNull()?.toIntOrNull()
+
+    if (del == null) {
+        println("Некорректный id")
+        return
+    }
+
+    val flag = manager.remove_list(del)
+
+    if (flag) {
+        println("Запись удалена")
+    } else {
+        println("Запись с таким id не найдена")
+    }
+}
+
+        </code></pre>
+
+        <hr>
+
+        <button>GO</button>
+
+
+    </body>
+</html>
