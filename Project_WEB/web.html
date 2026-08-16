@@ -2,46 +2,69 @@
 <html>
     <head>
         <meta charset = "utf-8">
+        <meta name="Victor" content="Resume">
 
         <title>
             Резюме
         </title>
+
+        <link rel="stylesheet" href="CSS/main.css">
         
     </head>
     <body>
-        <strike></strike><br>
-        <strong>ФИО:</strong> Бондарев Виктор Артёмович<br>
-        <h2>Личная информация</h2>
-        <p>
-            Я студет IT вуза РТУ<abbr title = "Московский институт радиотехники, 
-                    электроники и автоматики" > <strong>МИРЭА</strong></abbr>,
-                    обучающийся на направлении <strong>Системная и программная инженерия</strong>.<br>
-                Не имею никаких задолжностей, или выговоров.
-        </p>
-        <p> 
-            Успешно прошел отбор и поступил на обучение в <strong>СБЕР школу 21</strong>, 
-                после прохождения начальной программы<br> планирую пойти на направление 
-                <strong>JAVA</strong> разработчик
-        </p>
 
-        <h2>Навыки</h2>
-        Пишу код на:<br>
+        <div id="User_block">
+            Hello, User !!!
+        </div>
 
-        <ul>
-            <li>
-                JAVA
-            </li>
-            <li>
-                Python
-            </li>
-            <li>
-                C
-            </li>
-        </ul>
+        <div id="multi-block">
+            <div id="image-block" class="block">
+                <img src="images/photo_2023-05-24_21-24-09.jpg" height="30"
+            title="Good-Boy" alt="Виктор"><br>
+            </div>
 
-        <h2>Проекты</h2>
+            <div id="inf_block" class="block">
+                <strong>ФИО:</strong> Бондарев Виктор Артёмович<br>
+            </div>
 
-        <strong><a href="postal_message_accounting_system.html">Система учета почтовыз сообщений</a></strong>
+            <div id="info_block" class="block">
+                <h2>Личная информация</h2>
+
+            <p>
+                Я студет IT вуза РТУ<abbr title = "Московский институт радиотехники, 
+                        электроники и автоматики" > <strong>МИРЭА</strong></abbr>,
+                        обучающийся на направлении <strong>Системная и программная инженерия</strong>.<br>
+                    Не имею никаких задолжностей, или выговоров.
+            </p>
+            <p> 
+                Успешно прошел отбор и поступил на обучение в <strong>СБЕР школу 21</strong>, 
+                    после прохождения начальной программы<br> планирую пойти на направление 
+                    <strong>JAVA</strong> разработчик
+            </p>
+
+            <h2>Навыки</h2>
+            Пишу код на:<br>
+
+            <ul>
+                <li>
+                    JAVA
+                </li>
+                <li>
+                    Python
+                </li>
+                <li>
+                    C
+                </li>
+            </ul>>
+            </div>
+        </div>
+
+        <a href="#Проекты">Внизу Проекты</a><br>
+        <div id="Info" class="block">
+
+            <h2><a name="Проекты">Проекты</a></h2>
+
+        <strong><a class="project_to" href="postal_message_accounting_system.html">Система учета почтовыз сообщений</a></strong>
         <p>
             Описание
         </p>
@@ -56,6 +79,9 @@
         <p>
             Описание
         </p>
+
+        </div>
+
 
     </body>
 </html>
