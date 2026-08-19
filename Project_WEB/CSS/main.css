@@ -3,6 +3,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -11,16 +12,17 @@ body {
     background-image: url('https://optim.tildacdn.com/tild6362-3563-4634-b263-326331633637/-/format/webp/arkii-razmytyi-kraso.jpg.webp');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 2000px;
-    min-width: 1800px;
+    height: 100vh;
+    width: 100vw;
 
     font-family: 'Google Sans';
+    font-size: 1rem;
     
 }
 
 
 #User_block {
-    background-color: wheat;
+    background-color: rgb(250, 224, 176);
     height: 37px;
     width: 117px;
     padding: 5px;
@@ -43,62 +45,71 @@ body {
     background-color: white;
     border: 3px solid rgb(131, 131, 131);
     border-radius: 30px;
-    margin: 10px;
-    padding: 10px;
+    padding: 1.5%;
     position: absolute;
 }
 
 
 #multi-block {
-    width: 800px;
-    height: 600px;
+    width: 30%;
+    height: 53.3%;
     top: 30%;
-    right: 30px;
+    right: 10%;
     float: right;
 
     background-color: rgba(168, 168, 168, 0.85);
     border: 3px solid rgb(131, 131, 131);
     border-radius: 30px;
     margin: 10px;
-    padding: 10px;
     position: absolute;
     
 
 }
 
 #image-block {
-    width: 170px;
-    height: 170px;
-    top: 0;
-    right: 0;
+    width: 35.5%;
+    height: 35.5%;
+    top: 1.8%;
+    right: 1.8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
+}
+
+#image-block img {
+    width: 96.4%;
+    height: 96.4%;
+    border-radius: 10px;
 
 }
 
 
 #inf_block {
-    width: 555px;
-    height: 170px;
-    top: 0;
-    left: 0px;
+    width: 59.1%;
+    height: 35.5%;
+    top: 1.8%;
+    left: 1.8%;
 
 
 }
 
 #info_block {
     position: absolute;
-    bottom: 10px;
-    left: 0;
-    top: 35%;
+    
+    top: 39.1%;
+    left: 1.8%;
+    right: 1.8%;
+    bottom: 1.8%;
 
 
 }
 
 #Info {
-    width: 800px;
-    height: 600px;
+    width: 30%;
+    height: 53.3%;
     top: 30%;
-    left: 30px;
+    left: 10%;
     float: left;
 
 }
