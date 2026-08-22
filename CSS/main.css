@@ -34,7 +34,7 @@ body {
     right: 30px;
 
     text-align: center;
-    line-height: 40px;
+    line-height: center;
 
     z-index: 100;
     
@@ -47,6 +47,59 @@ body {
     border-radius: 30px;
     padding: 1.5%;
     position: absolute;
+}
+
+#reg {
+    width: 30%;
+    height: 50%;
+    top: 23.5%;
+    left: 33.5%;
+    font-size: 1.5rem;
+
+    background-color: rgba(255, 254, 254);
+    border: 3px solid rgb(131, 131, 131);
+    border-radius: 30px;
+    margin: 10px;
+    position: absolute;
+}
+
+#reg input {
+    width: 100%;
+    height: 45px;
+
+    padding: 10px;
+
+    font-size: 1.1rem;
+
+    border: 2px solid rgb(180, 180, 180);
+    border-radius: 12px;
+
+    outline: none;
+}
+
+#reg button {
+    width: 100%;
+    height: 45px;
+
+    margin-top: 20px;
+
+    font-size: 1.1rem;
+
+    border: none;
+    border-radius: 12px;
+
+    background-color: rgb(70, 110, 210);
+    color: white;
+
+    cursor: pointer;
+}
+
+#reg button:hover {
+    background-color: rgb(60, 100, 200);
+}
+
+#reg button:active {
+    background-color: rgb(40, 70, 150);
 }
 
 
@@ -63,7 +116,6 @@ body {
     margin: 10px;
     position: absolute;
     
-
 }
 
 #image-block {
