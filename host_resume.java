@@ -1,33 +1,15 @@
-import com.sun.net.httpserver.HttpServer;
-import java.net.InetSocketAddress;
+import io.javalin.Javalin;
 
+void main() {
+    Javalin app = Javalin.create().start(8080);
 
-void main()throws Exception{
+    app.post("/registers", ctx -> {
+        String json = ctx.body();
 
+        IO.println(json);
 
-    HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-    server.createContext("/registers", x -> {
-
-        if (x.getRequestMethod().equals("OPTIONS")) {
-
-            x.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-            x.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, OPTIONS");
-            x.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-
-            x.sendResponseHeaders(204, -1);
-        } else {
-            
-            byte[] data = x.getRequestBody().readAllBytes();
-            String rez = new String(data);
-
-            IO.println(rez);
-
-            x.sendResponseHeaders(200, -1);
-        }
-        x.close();
+        ctx.status(200);
     });
 
-
-    server.start();
     IO.println("i worked");
 }
